@@ -31,7 +31,6 @@ read -r -d '' USAGE <<EOS
 Usage: human [OPTIONS] <NAME>
 
 OPTIONS:
-  -x, --exclude   Exclude aliases from lookup.
   -h, --help      Show usage information.
   -v, --version   Show current version.
 EOS
@@ -48,6 +47,7 @@ __get_human_version() {
 
 human() {
 	local MAN="$(/usr/bin/which man)"
+	local ARGV=()
 
 	while [[ $# -gt 0 ]]; do
 		case $1 in
@@ -62,20 +62,33 @@ human() {
 				return 0
 			;;
 			*)
-				local NAME="$1"
+				ARGV+=("$1")
 
 				shift
 			;;
 		esac
 	done
 
-	if __is_alias "$NAME"; then
-		local VALUE="$(__get_alias_value "$NAME")"
+	local NAME="${ARGV[${#ARGV[@]}-1]}"
 
-		$MAN "$VALUE"
-	else
-		$MAN "$NAME"
+	if __is_alias "$NAME"; then
+		local TMP=()
+		local VALUE="$(__get_alias_value $NAME)"
+
+		for ARG in "${ARGV[@]}"; do
+			[[ "$ARG" != "$NAME" ]] && TMP+=("$ARG")
+		done
+
+		ARGV=("${TMP[@]}")
+
+		if [[ "$VALUE" != "${FUNCNAME[0]}" ]]; then
+			ARGV+=("$VALUE")
+		else
+			ARGV+=("$NAME")
+		fi
 	fi
+
+	$MAN "${ARGV[@]}"
 }
 
 # Remove this alias if you would
