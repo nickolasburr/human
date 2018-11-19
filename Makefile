@@ -14,13 +14,13 @@ TARGET = $(COMDIR)/$(SCRIPT)
 
 MANPAGE = $(MANDIR)/$(COMMON).1.gz
 
-.PHONY: all src man
+.PHONY: all install manpage
 
-all: src
+all: install
 
-src: $(SCRIPT)
+install: $(SCRIPT)
 	@mkdir -p $(SRCDIR)
 	@cp -fpv $^ $(TARGET)
 
-man: $(MANUAL)
+manpage: $(MANUAL)
 	@cp -fpv $^ $(MANPAGE)
