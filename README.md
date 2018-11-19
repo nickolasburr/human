@@ -7,6 +7,7 @@ Its primary intent is to improve manpage lookups by analyzing shell aliases and 
 ## Table of Contents
 
 - [Installation](#installation)
+- [Configuration](#configuration)
 - [Notes](#notes)
 - [Examples](#examples)
 
@@ -15,13 +16,28 @@ Its primary intent is to improve manpage lookups by analyzing shell aliases and 
 ```
 git clone https://github.com/nickolasburr/human.git
 cd human
-make
+make install
+```
+
+The default prefix is `/usr/local/opt`. To install to an alternate location, pass `PREFIX` to `make install`.
+
+```
+make install PREFIX=/opt
 ```
 
 To install human(1) manpage:
 
 ```
-make man
+make manpage
+```
+
+## Configuration
+
+Since `human` requires access to the shell environment, it is implemented as a shell function. Likewise, it
+will need to be sourced from a shell configuration file (e.g. `.bashrc`).
+
+```
+[[ -f /usr/local/opt/human/src/human.sh ]] && . /usr/local/opt/human/src/human.sh
 ```
 
 ## Notes
