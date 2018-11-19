@@ -1,6 +1,6 @@
 # human(1)
 
-`human` is a heuristics utility for man(1).
+`human` is a heuristics utility for [man(1)](https://linux.die.net/man/1/man).
 
 Its primary intent is to improve manpage lookups by analyzing shell aliases and shell functions during the lookup process.
 
