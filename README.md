@@ -30,7 +30,7 @@ Only shell aliases are supported as of this version.
 
 ## Examples
 
-Get GNU tail(1) manpage instead of BSD tail(1) manpage.
+Get manpage for GNU [tail(1)](https://linux.die.net/man/1/tail) instead of BSD [tail(1)](https://man.openbsd.org/tail.1).
 
 ```
 alias tail='gtail'
